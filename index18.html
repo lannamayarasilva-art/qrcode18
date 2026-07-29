@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR CODE 18 - Jardim</title>
+    
+    <link rel="canonical" href="https://bancodesolucoes.com">
+
+    <style>
+        :root {
+            --bg-dark: #04060f;
+            --bg-card: #0b112c;
+            --gold: #f39c12;
+            --gold-glow: #f1c40f;
+            --purple: #8e44ad;
+            --purple-glow: #9b59b6;
+            --text: #ecf0f1;
+            --success: #2ecc71;
+            --error: #e74c3c;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        /* Animações */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-25px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes eclipsePulse {
+            0% {
+                box-shadow: 0 0 25px 5px rgba(243, 156, 18, 0.4),
+                            0 0 50px 15px rgba(142, 68, 173, 0.3);
+            }
+            50% {
+                box-shadow: 0 0 40px 12px rgba(241, 196, 15, 0.7),
+                            0 0 70px 25px rgba(155, 89, 182, 0.5);
+            }
+            100% {
+                box-shadow: 0 0 25px 5px rgba(243, 156, 18, 0.4),
+                            0 0 50px 15px rgba(142, 68, 173, 0.3);
+            }
+        }
+
+        /* Container Principal */
+        .card {
+            background: linear-gradient(160deg, var(--bg-card), #060a1a);
+            border: 1px solid rgba(243, 156, 18, 0.25);
+            border-radius: 20px;
+            padding: 40px 30px;
+            max-width: 550px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8);
+            animation: fadeIn 0.9s ease-out;
+        }
+
+        h1 {
+            font-size: 1.6rem;
+            color: var(--gold);
+            margin-bottom: 25px;
+            animation: slideDown 0.7s ease-out;
+            text-shadow: 0 0 12px rgba(243, 156, 18, 0.3);
+        }
+
+        /* Eclipse Solar */
+        .eclipse-wrapper {
+            display: flex;
+            justify-content: center;
+            margin: 30px 0;
+        }
+
+        .eclipse {
+            width: 110px;
+            height: 110px;
+            background-color: #000;
+            border-radius: 50%;
+            position: relative;
+            animation: eclipsePulse 4s infinite ease-in-out;
+        }
+
+        .eclipse::after {
+            content: '';
+            position: absolute;
+            top: 4px;
+            left: 7px;
+            width: 100px;
+            height: 100px;
+            background-color: var(--bg-dark);
+            border-radius: 50%;
+        }
+
+        /* Bloco de Informações */
+        .sample-details {
+            background-color: rgba(142, 68, 173, 0.12);
+            border-left: 4px solid var(--purple);
+            padding: 18px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            text-align: left;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .sample-details h2 {
+            font-size: 1.1rem;
+            color: var(--purple-glow);
+            margin-bottom: 8px;
+        }
+
+        /* Campo Interativo */
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        @media (min-width: 480px) {
+            .form-group {
+                flex-direction: row;
+            }
+        }
+
+        input[type="text"] {
+            flex: 1;
+            padding: 14px 18px;
+            border-radius: 10px;
+            border: 2px solid rgba(243, 156, 18, 0.3);
+            background-color: rgba(4, 6, 15, 0.8);
+            color: #fff;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        input[type="text"]:focus {
+            border-color: var(--gold);
+            box-shadow: 0 0 12px rgba(243, 156, 18, 0.4);
+        }
+
+        button {
+            padding: 14px 28px;
+            border-radius: 10px;
+            border: none;
+            background: linear-gradient(135deg, var(--gold), var(--purple));
+            color: #fff;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px var(--gold-glow);
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        .feedback {
+            margin-top: 20px;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            min-height: 24px;
+            transition: opacity 0.3s ease;
+        }
+
+        .success {
+            color: var(--success);
+            background-color: rgba(46, 204, 113, 0.12);
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid var(--success);
+            animation: fadeIn 0.4s ease;
+        }
+
+        .error {
+            color: var(--error);
+            background-color: rgba(231, 76, 60, 0.12);
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid var(--error);
+            animation: fadeIn 0.4s ease;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h1>QR CODE 18 — Jardim</h1>
+
+        <div class="eclipse-wrapper">
+            <div class="eclipse"></div>
+        </div>
+
+        <div class="sample-details">
+            <h2>TESTE CLÍNICO</h2>
+            <p><strong>Frequência respiratória:</strong> 18 irpm</p>
+            <p><strong>Saturação:</strong> 98%</p>
+            <p><strong>Desafio:</strong> Classifique o quadro do paciente. O resultado indica o próximo envelope.</p>
+        </div>
+
+        <div class="form-group">
+            <input type="text" id="answer" placeholder="Digite a classificação (Ex: Estável)..." onkeydown="handleKeyPress(event)" oninput="clearFeedback()">
+            <button onclick="checkAnswer()">Enviar</button>
+        </div>
+
+        <div id="feedback" class="feedback"></div>
+    </div>
+
+    <script>
+        function checkAnswer() {
+            const input = document.getElementById('answer').value.trim().toLowerCase();
+            const feedback = document.getElementById('feedback');
+
+            const validAnswers = [
+                "normal",
+                "quadro normal",
+                "eupneico"
+            ];
+
+            if (validAnswers.includes(input)) {
+                feedback.className = "feedback success";
+                feedback.innerHTML = "✅ Observação: ➡ <strong>Envelope N</strong>";
+            } else {
+                feedback.className = "feedback error";
+                feedback.innerHTML = "❌ Resposta incorreta. Verifique a classificação e tente novamente.";
+            }
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === "Enter") {
+                checkAnswer();
+            }
+        }
+
+        function clearFeedback() {
+            const feedback = document.getElementById('feedback');
+            if (feedback.classList.contains('error')) {
+                feedback.className = "feedback";
+                feedback.innerHTML = "";
+            }
+        }
+    </script>
+
+</body>
+</html>
